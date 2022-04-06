@@ -10,6 +10,12 @@ An application that converts the audio from a YouTube video to text and then sen
 * Send text transcript to the user's email address.
 * Clear form and post message saying email was succesful or not.
 
+## Dependencies 
+* [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js.
+* [YouTube mp3 Downloader](https://www.npmjs.com/package/youtube-mp3-downloader) - Youtube MP3 Downloader is a module which allows to specify YouTube videos from which the audio data should be extracted, converted to MP3, and stored on disk.
+* [DeepGram SDK](https://github.com/deepgram/deepgram-node-sdk) - Official Node.js SDK for Deepgram's automated speech recognition APIs.
+* [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static) - ffmpeg static binaries for Mac OSX, Linux, Windows.
+
 ## Dev and Deepgram Hackathon
 
 ### Dev 
