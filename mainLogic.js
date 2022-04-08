@@ -1,13 +1,46 @@
+const fs = require('fs')
+const YoutubeMp3Downloader = require('youtube-mp3-downloader')
+const { Deepgram } = require('@deepgram/sdk')
+const ffmpeg = require('ffmpeg-static')
 const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
+//* Initialize Clients *//
+const deepgram = new Deepgram(process.env.DEEPGRAM_API_KEY)
+const YD = new YoutubeMp3Downloader({
+  ffmpegPath: ffmpeg,
+  outputPath: './',
+  youtubeVideoQuality: 'highestaudio',
+})
+
 //* Download Audio From YouTube *//
+YD.download('ir-mWUYH_uo')
+
+YD.on('progress', (data) => {
+  console.log(data.progress.percentage + '% downloaded')
+})
+
+YD.on('finished', async (err, video) => {
+  const videoFileName = video.file
+  console.log(`Downloaded ${videoFileName}`)
+
+  //* Convert Audio to Text with DeepGram *//
+  const file = {
+    buffer: fs.readFileSync(videoFileName),
+    mimetype: 'audio/mp3',
+  }
+  const options = {
+    punctuate: true,
+    utterances: true,
+  }
+
+  const result = await deepgram.transcription
+    .preRecorded(file, options)
+    .catch((e) => console.log(e))
+  console.log(result.toWebVTT())
+})
 
 
-
-
-
-//* Convert Audio to Text with DeepGram *//
 
 
 
