@@ -1,8 +1,81 @@
 body {
+  background-color: #67e999;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 
-a {
-  color: #00B7FF;
+.nav-bar {
+  margin: 20px;
+}
+
+ .App-link {
+  color: #61c2dd;
+}
+
+
+div {
+  margin: 20px;
+}
+
+ul {
+  list-style-type: none;
+  text-align: center;
+}
+
+h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+h4 {
+  font: bold 16px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+li img {
+  float: center;
+  margin: 0 15px 0 0;
+  max-width: 50%;
+  min-width: 80px;
+  box-shadow: 1px 1px;
+}
+
+li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+
+li {
+  padding: 10px;
+  display: inline-block;
+  overflow: auto;
+}
+
+li:hover {
+  background: rgb(230, 230, 230);
+}
+
+
+/* Search  Form*/
+.form-span {
+  padding: 15px 30px;
+  margin: 0px 0px 0px 0px;
+}
+
+.form-select {
+  padding: 0px 30px;
+  margin: 0px 0px 0px 0px;
+  text-align: center;
+}
+
+.form-button {
+  text-align: center;
+}
+
+.form-label {
+  width: 600px;
+  display: inline-block;
+}
+
+.form-span-text {
+  width: 250px;
+  display: inline-block;
 }
