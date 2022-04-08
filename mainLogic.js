@@ -12,6 +12,7 @@ const YD = new YoutubeMp3Downloader({
   outputPath: './',
   youtubeVideoQuality: 'highestaudio',
 })
+let audioToTextTranscript = "";
 
 //* Download Audio From YouTube *//
 YD.download('ir-mWUYH_uo')
@@ -37,42 +38,51 @@ YD.on('finished', async (err, video) => {
   const result = await deepgram.transcription
     .preRecorded(file, options)
     .catch((e) => console.log(e))
-  console.log(result.toWebVTT())
-})
+  //console.log(result.toWebVTT())
 
+  audioToTextTranscript = result.results.channels[0].alternatives[0].transcript;
+  console.log(audioToTextTranscript);
+  // Save the File
+  // const transcript = result.results.channels[0].alternatives[0].transcript;
+  // fs.writeFileSync(
+  //   `${videoFileName}.txt`,
+  //   transcript,
+  //   () => `Wrote ${videoFileName}.txt`
+  // )
 
+  // Delete the mp3
+  fs.unlinkSync(videoFileName)
 
+  //* Sendgrid Email Process *//
+  // Declare parameters for email
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const emailTo = process.env.SENDGRID_EMAIL_RECEIVER;
+  const emailFrom = process.env.SENDGRID_EMAIL_SENDER;
+  const emailSubject = "SendGrid Test Email";
+  const emailText = audioToTextTranscript;
+  const emailHTML = `<p>${emailText}</p>`;
 
+  // Create the email
+  const msg = {
+    to: emailTo,
+    from: emailFrom, // Use the email address or domain you verified above
+    subject: emailSubject,
+    text: emailText,
+    html: emailHTML,
+  };
 
+  // Send the email
+  (async () => {
+    try {
+      await sgMail.send(msg);
+      console.log(">>> Email has been sent.")
+    } catch (error) {
+      console.error(error);
 
-
-//* Sendgrid Email Process *//
-// Declare parameters for email
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const emailTo = process.env.SENDGRID_EMAIL_RECEIVER;
-const emailFrom = process.env.SENDGRID_EMAIL_SENDER;
-const emailSubject = "SendGrid Test Email";
-const emailText = "This is my second email. Can you read it without the HTML added?";
-const emailHTML = `<p>${emailText}</p>`;
-
-// Create the email
-const msg = {
-  to: emailTo,
-  from: emailFrom, // Use the email address or domain you verified above
-  subject: emailSubject,
-  text: emailText,
-  html: emailHTML,
-};
-
-// Send the email
-(async () => {
-  try {
-    await sgMail.send(msg);
-  } catch (error) {
-    console.error(error);
-
-    if (error.response) {
-      console.error(error.response.body)
+      if (error.response) {
+        console.error(error.response.body)
+      }
     }
-  }
-})();
+  })();
+
+});
