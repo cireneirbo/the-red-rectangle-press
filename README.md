@@ -8,7 +8,7 @@ An application that converts the audio from a YouTube video to text and then sen
 * Get user input for the email address they want to send the transcript to.
 * Use Deepgram API to convert the audio into text.
 * Send text transcript to the user's email address.
-* Clear form and post message saying email was succesful or not.
+* Clear form and post message saying email was successful or not.
 
 ## Dependencies 
 * [Express](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js.
