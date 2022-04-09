@@ -26,4 +26,4 @@ An application that converts the audio from a YouTube video to text and then sen
 * [Deepgram Home Page](https://deepgram.com/) - Deepgram provides developers with the tools you need to easily add AI speech recognition to applications. We can handle practically any audio file format and deliver at lightning speed for the best voice experiences.
 
 ### Hackathon Category
-* Analytics Ambassadors: Use Deepgram to analyze one or many pieces of audio. You may analyze a single call to help understand what happened or analyze hundreds of media files all at once.
+* Accessibility Advocates: Use Deepgram to improve user accessibility. Think about user input, accessing media or live events, and improving understanding.
