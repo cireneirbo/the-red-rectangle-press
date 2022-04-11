@@ -1,7 +1,7 @@
-const fs = require('fs')
-const YoutubeMp3Downloader = require('youtube-mp3-downloader')
-const { Deepgram } = require('@deepgram/sdk')
-const ffmpeg = require('ffmpeg-static')
+const fs = require('fs');
+const YoutubeMp3Downloader = require('youtube-mp3-downloader');
+const { Deepgram } = require('@deepgram/sdk');
+const ffmpeg = require('ffmpeg-static');
 const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
@@ -17,11 +17,11 @@ const YD = new YoutubeMp3Downloader({
 let audioToTextTranscript = "";
 
 //* Download Audio From YouTube *//
-YD.download('_uVIvpB9q3w') // create an input asking for a unique video id
+YD.download('OVuhW0YhA3Q') // create an input asking for a unique video id
 
 // While downloading...
 YD.on('progress', (data) => {
-  console.log(data.progress.percentage + '% downloaded')
+  console.log(data.progress.percentage + '% downloaded');
 })
 
 // If downloading error...
@@ -31,8 +31,8 @@ YD.on("error", function(error) {
 
 // When download has finished...
 YD.on('finished', async (err, video) => {
-  const videoFileName = video.file
-  console.log(`Downloaded ${videoFileName}`)
+  const videoFileName = video.file;
+  console.log(`Downloaded ${videoFileName}`);
 
   //* Convert Audio to Text with DeepGram *//
   const file = {
@@ -46,7 +46,7 @@ YD.on('finished', async (err, video) => {
 
   const result = await deepgram.transcription
     .preRecorded(file, options)
-    .catch((e) => console.log(e))
+    .catch((e) => console.log(e));
   //console.log(result.toWebVTT())
 
   audioToTextTranscript = result.results.channels[0].alternatives[0].transcript;
@@ -60,9 +60,10 @@ YD.on('finished', async (err, video) => {
   // )
 
   // Delete the mp3
-  fs.unlinkSync(videoFileName)
+  fs.unlinkSync(videoFileName);
 
   //* Sendgrid Email Process *//
+
   // Declare parameters for email
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const emailTo = process.env.SENDGRID_EMAIL_RECEIVER;
@@ -84,12 +85,12 @@ YD.on('finished', async (err, video) => {
   (async () => {
     try {
       await sgMail.send(msg);
-      console.log(">>> Email has been sent.")
+      console.log(">>> Email has been sent to " + emailTo);
     } catch (error) {
       console.error(error);
 
       if (error.response) {
-        console.error(error.response.body)
+        console.error(error.response.body);
       }
     }
   })();
