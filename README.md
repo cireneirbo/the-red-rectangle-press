@@ -27,3 +27,8 @@ An application that converts the audio from a YouTube video to text and then sen
 
 ### Hackathon Category
 * Accessibility Advocates: Use Deepgram to improve user accessibility. Think about user input, accessing media or live events, and improving understanding.
+
+## Issues
+* Longer videos (more than 1 minute) are not downloading properly. Seems to be a timeout of sorts.
+* Need to add an input option for the links
+* Need to create a user friendly command line interface while the program runs its course.

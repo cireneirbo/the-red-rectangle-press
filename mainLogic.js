@@ -11,15 +11,21 @@ const YD = new YoutubeMp3Downloader({
   ffmpegPath: ffmpeg,
   outputPath: './',
   youtubeVideoQuality: 'highestaudio',
+  queueParallelism: 2,
+  progressTimeout: 2000,
 })
 let audioToTextTranscript = "";
 
 //* Download Audio From YouTube *//
-YD.download('ir-mWUYH_uo')
+YD.download('_uVIvpB9q3w') // create an input asking for a unique video id
 
 YD.on('progress', (data) => {
   console.log(data.progress.percentage + '% downloaded')
 })
+
+YD.on("error", function(error) {
+  console.log(error);
+});
 
 YD.on('finished', async (err, video) => {
   const videoFileName = video.file
