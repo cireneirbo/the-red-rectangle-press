@@ -10,23 +10,26 @@ const deepgram = new Deepgram(process.env.DEEPGRAM_API_KEY)
 const YD = new YoutubeMp3Downloader({
   ffmpegPath: ffmpeg,
   outputPath: './',
-  youtubeVideoQuality: 'highestaudio',
+  youtubeVideoQuality: 'lowestaudio',
   queueParallelism: 2,
-  progressTimeout: 2000,
+  progressTimeout: 5000,
 })
 let audioToTextTranscript = "";
 
 //* Download Audio From YouTube *//
 YD.download('_uVIvpB9q3w') // create an input asking for a unique video id
 
+// While downloading...
 YD.on('progress', (data) => {
   console.log(data.progress.percentage + '% downloaded')
 })
 
+// If downloading error...
 YD.on("error", function(error) {
   console.log(error);
 });
 
+// When download has finished...
 YD.on('finished', async (err, video) => {
   const videoFileName = video.file
   console.log(`Downloaded ${videoFileName}`)
